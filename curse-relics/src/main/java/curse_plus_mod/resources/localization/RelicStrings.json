@@ -1,0 +1,12 @@
+{
+	"cursePlus:Normality": {
+		"NAME": "Empowered Normality",
+		"DESCRIPTIONS": [
+			" at the start of your turn. You cannot play more than #b",
+			" cards per turn.",
+			"The first 3 cards played each turn are played twice.",
+			"I can only play up to NL #r"
+		],
+		"FLAVOR": "Repetition becomes experience. Experience begets prowess."
+	}
+}

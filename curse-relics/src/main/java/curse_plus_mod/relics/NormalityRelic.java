@@ -2,6 +2,7 @@ package curse_plus_mod.relics;
 
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.EchoPower;
@@ -11,7 +12,7 @@ import basemod.abstracts.CustomRelic;
 
 public class NormalityRelic extends CustomRelic {
 
-    private static final int PLAY_LIMIT = 3;
+    private static final int PLAY_LIMIT = 6;
 
     public NormalityRelic() {
         super("CursePlus:Normality", "", AbstractRelic.RelicTier.SPECIAL, null);
@@ -23,23 +24,31 @@ public class NormalityRelic extends CustomRelic {
     }
 
     @Override
-    public String getUpdatedDescription() {
-        return DESCRIPTIONS[0];
+    public String getUpdatedDescription()
+    {
+      if (AbstractDungeon.player != null) {
+        return setDescription(AbstractDungeon.player.chosenClass);
+      }
+      return setDescription(null);
+    }
+    
+    private String setDescription(AbstractPlayer.PlayerClass c)
+    {
+      return this.DESCRIPTIONS[2] + this.DESCRIPTIONS[0] + PLAY_LIMIT + this.DESCRIPTIONS[1];
     }
 
     public void atBattleStart() {
-        this.counter = 0;
-    }
-
-    public void atTurnStart() {
         AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,
                 new EchoPower(AbstractDungeon.player, 1), 3));
         this.counter = 0;
     }
 
+    public void atTurnStart() {
+        this.counter = 0;
+    }
+
     public void onPlayCard(AbstractCard card, AbstractMonster m) {
-        AbstractCard prevCard = card;
-        if ((this.counter < PLAY_LIMIT) && (card.type != AbstractCard.CardType.CURSE) && card.uuid == prevCard.uuid) {
+        if ((this.counter < PLAY_LIMIT) && (card.type != AbstractCard.CardType.CURSE)) {
             this.counter += 1;
             if (this.counter >= PLAY_LIMIT) {
                 flash();
