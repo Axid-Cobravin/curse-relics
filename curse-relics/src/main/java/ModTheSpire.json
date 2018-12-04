@@ -1,0 +1,8 @@
+{
+	"modid": "curseplus-sts",
+	"name": "Curse Plus",
+	"author_list": ["Axid_Cobravin"],
+	"description": "Adds curse themed content.",
+	"dependencies": ["basemod"],
+	"version": "0.0.1"
+}

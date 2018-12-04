@@ -1,5 +1,6 @@
 package curse_plus_mod.relics;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -9,13 +10,18 @@ import com.megacrit.cardcrawl.powers.EchoPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 
 import basemod.abstracts.CustomRelic;
+import curse_plus_mod.CursePlusMod;
+import curse_plus_mod.TextureLoader;
 
 public class NormalityRelic extends CustomRelic {
 
     private static final int PLAY_LIMIT = 6;
+    public static final String ID = "CursePlus:Normality";
+    public static final Texture IMG = TextureLoader.getTexture(CursePlusMod.makePath("relics/cursed_hand.png"));
+    public static final Texture BORDER = TextureLoader.getTexture(CursePlusMod.makePath("relics/cursed_hand_border.png"));
 
     public NormalityRelic() {
-        super("CursePlus:Normality", "", AbstractRelic.RelicTier.SPECIAL, null);
+        super(ID, IMG, BORDER, AbstractRelic.RelicTier.SPECIAL, LandingSound.MAGICAL);
     }
 
     @Override
@@ -39,7 +45,7 @@ public class NormalityRelic extends CustomRelic {
 
     public void atBattleStart() {
         AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,
-                new EchoPower(AbstractDungeon.player, 1), 3));
+                new EchoPower(AbstractDungeon.player, 3), 1));
         this.counter = 0;
     }
 
